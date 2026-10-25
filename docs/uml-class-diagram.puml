@@ -1,0 +1,63 @@
+@startuml
+!pragma layout smetana
+skinparam classAttributeIconSize 0
+skinparam monochrome true
+skinparam shadowing false
+
+interface RouteStrategy <<Strategy>> {
+  + plan(request: RouteRequest): RoutePlan
+}
+
+class CarRouteStrategy <<Concrete Strategy>> {
+  + plan(request: RouteRequest): RoutePlan
+}
+
+class WalkingRouteStrategy <<Concrete Strategy>> {
+  + plan(request: RouteRequest): RoutePlan
+}
+
+class BicycleRouteStrategy <<Concrete Strategy>> {
+  + plan(request: RouteRequest): RoutePlan
+}
+
+class PublicTransportRouteStrategy <<Concrete Strategy>> {
+  + plan(request: RouteRequest): RoutePlan
+}
+
+class Navigator <<Context>> {
+  - routeStrategy: RouteStrategy
+  + Navigator(routeStrategy: RouteStrategy)
+  + setRouteStrategy(routeStrategy: RouteStrategy): void
+  + buildRoute(request: RouteRequest): RoutePlan
+}
+
+class NavigationDemo <<Client>> {
+  + main(args: String[]): void
+}
+
+class RouteRequest <<record>> {
+  + from: String
+  + to: String
+  + distanceKm: double
+}
+
+class RoutePlan <<record>> {
+  + transport: String
+  + estimatedMinutes: int
+  + details: String
+}
+
+RouteStrategy <|.. CarRouteStrategy
+RouteStrategy <|.. WalkingRouteStrategy
+RouteStrategy <|.. BicycleRouteStrategy
+RouteStrategy <|.. PublicTransportRouteStrategy
+Navigator o--> RouteStrategy : current strategy
+NavigationDemo ..> Navigator : creates and configures
+NavigationDemo ..> CarRouteStrategy
+NavigationDemo ..> WalkingRouteStrategy
+NavigationDemo ..> BicycleRouteStrategy
+NavigationDemo ..> PublicTransportRouteStrategy
+RouteStrategy ..> RouteRequest
+RouteStrategy ..> RoutePlan
+@enduml
+

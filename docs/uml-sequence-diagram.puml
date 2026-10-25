@@ -1,0 +1,26 @@
+@startuml
+skinparam monochrome true
+skinparam shadowing false
+
+actor User
+participant "NavigationDemo\nClient" as Client
+participant "Navigator\nContext" as Navigator
+participant "CarRouteStrategy" as Car
+participant "WalkingRouteStrategy" as Walk
+
+User -> Client: run application
+Client -> Car: create
+Client -> Navigator: new Navigator(Car)
+Client -> Navigator: buildRoute(request)
+Navigator -> Car: plan(request)
+Car --> Navigator: car RoutePlan
+Navigator --> Client: car RoutePlan
+
+Client -> Walk: create
+Client -> Navigator: setRouteStrategy(Walk)
+Client -> Navigator: buildRoute(request)
+Navigator -> Walk: plan(request)
+Walk --> Navigator: walking RoutePlan
+Navigator --> Client: walking RoutePlan
+@enduml
+
