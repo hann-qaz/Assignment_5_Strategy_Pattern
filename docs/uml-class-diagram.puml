@@ -1,5 +1,6 @@
 @startuml
 !pragma layout smetana
+top to bottom direction
 skinparam classAttributeIconSize 0
 skinparam monochrome true
 skinparam shadowing false
@@ -53,11 +54,11 @@ RouteStrategy <|.. BicycleRouteStrategy
 RouteStrategy <|.. PublicTransportRouteStrategy
 Navigator o--> RouteStrategy : current strategy
 NavigationDemo ..> Navigator : creates and configures
-NavigationDemo ..> CarRouteStrategy
-NavigationDemo ..> WalkingRouteStrategy
-NavigationDemo ..> BicycleRouteStrategy
-NavigationDemo ..> PublicTransportRouteStrategy
+NavigationDemo ..> RouteStrategy : selects concrete objects
 RouteStrategy ..> RouteRequest
 RouteStrategy ..> RoutePlan
+CarRouteStrategy -[hidden]down-> WalkingRouteStrategy
+WalkingRouteStrategy -[hidden]down-> BicycleRouteStrategy
+BicycleRouteStrategy -[hidden]down-> PublicTransportRouteStrategy
 @enduml
 
