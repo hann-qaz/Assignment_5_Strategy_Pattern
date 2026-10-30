@@ -39,7 +39,7 @@ docs/            UML diagrams, report, and defense notes
 
 ## Author
 
-Amirkhan Tulkibayev, group SE-2522
+Amirkhan Tulkibayev group SE-2522
 
 Repository: <https://github.com/hann-qaz/Assignment_5_Strategy_Pattern>
 
